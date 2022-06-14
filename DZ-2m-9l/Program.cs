@@ -6,16 +6,18 @@ namespace DZ_2m_9l
     {
         static void Main(string[] args)
         {
+        Restart:
             try
             {
                 Calculate();
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Я не смог обработать ошибку");
+                Console.WriteLine($"В калькуляторе произошла ошибка: {ex.Message}");
+                goto Restart;
             }
-
+            
         }
         static void Calculate()
         {
@@ -68,7 +70,7 @@ namespace DZ_2m_9l
                     continue;
                 }
 
-                //Прроверка оператора на неверный символ
+                //Прроверка оператора на неверный символ (Не срабатывает при !=, только при == и else. не смог понять почему)
                 try
                 {
                     if (divString[1] == "+" || divString[1] == "-" || divString[1] == "*" || divString[1] == "/" || divString[1] == "")
@@ -132,42 +134,51 @@ namespace DZ_2m_9l
                         case "+":
                             result = Sum(firstNumberInt, secondNumberInt);
                             Console.WriteLine($"Ответ:{result}");
+                            if (result == 13)
+                            {
+                                throw new ThirteenException("вы получили ответ 13!");
+                            }
                             break;
                         case "-":
                             result = Sub(firstNumberInt, secondNumberInt);
                             Console.WriteLine($"Ответ:{result}");
+                            if (result == 13)
+                            {
+                                throw new ThirteenException("вы получили ответ 13!");
+                            }
                             break;
                         case "*":
                             result = Mul(firstNumberInt, secondNumberInt);
                             Console.WriteLine($"Ответ:{result}");
+                            if (result == 13)
+                            {
+                                throw new ThirteenException("вы получили ответ 13!");
+                            }
                             break;
                         case "/":
                             result = Div(firstNumberInt, secondNumberInt);
                             Console.WriteLine($"Ответ:{result}");
+                            if (result == 13)
+                            {
+                                throw new ThirteenException("вы получили ответ 13!");
+                            }
                             break;
                         case "":
                             throw new WrongOperException("Укажите в выражении оператор: +, -, *, /");
 
                     }
 
-                    try
-                    {
-                        if (result == 13)
-                        {
-                            throw new ThirteenException("вы получили ответ 13!");
-                        }
-
-                    }
-                    catch (ThirteenException exT)
-                    {
-                        Console.BackgroundColor = ConsoleColor.Green;
-                        Console.WriteLine(exT.Message);
-                        Console.BackgroundColor = ConsoleColor.Black;
-                    }
 
                 }
+                //Обработчик для 13ти
+                catch (ThirteenException exT)
+                {
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.WriteLine(exT.Message);
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
 
-
+                //Обработчик пропущенного оператора
                 catch (WrongOperException ex)
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
@@ -175,13 +186,14 @@ namespace DZ_2m_9l
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
 
+                //Выход за грнаицы Int
                 catch (OverflowException)
                 {
                     Console.BackgroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Результат выражения вышел за границы int");
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
-
+                //Деление на 0
                 catch (DivideByZeroException)
                 {
                     Console.BackgroundColor = ConsoleColor.Magenta;
