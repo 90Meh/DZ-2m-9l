@@ -26,11 +26,11 @@ namespace DZ_2m_9l
             do
             {
                 //Переменные 
-                int firstNumberInt = 0;
+                var firstNumberInt = 0;
                 string simbol;
-                int secondNumberInt = 0;
+                var secondNumberInt = 0;
                 string[] divString = { "", "☺", "" };
-                int result = 0;
+                var result = 0;
 
 
 
