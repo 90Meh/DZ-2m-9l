@@ -6,17 +6,19 @@ namespace DZ_2m_9l
     {
         static void Main(string[] args)
         {
-        Restart:
-            try
-            {
-                Calculate();
-            }
+            
+                Restart:
+                try
+                {
+                    Calculate();
+                }
 
-            catch (Exception ex)
-            {
-                Console.WriteLine($"В калькуляторе произошла ошибка: {ex.Message}");
-                goto Restart;
-            }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"В калькуляторе произошла ошибка: {ex.Message}");
+                    goto Restart;
+
+                }
             
         }
         static void Calculate()
@@ -51,21 +53,14 @@ namespace DZ_2m_9l
                     divString = function.Split(' ');
                     if (divString[0] == "" || divString[1] == "☺" || divString[2] == "")
                     {
-                        throw new Exception("Выражение некорректное, попробуйте написать в формате \n a + b \n a * b  \n a - b \n a / b");
+                        throw new IndexOutOfRangeException();
                     }
                 }
+                
                 catch (IndexOutOfRangeException)
-
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("Выражение некорректное, попробуйте написать в формате \n a + b \n a * b  \n a - b \n a / b");
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    continue;
-                }
-                catch (Exception ex)
-                {
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine(ex.Message);
                     Console.BackgroundColor = ConsoleColor.Black;
                     continue;
                 }
@@ -73,11 +68,7 @@ namespace DZ_2m_9l
                 //Прроверка оператора на неверный символ (Не срабатывает при !=, только при == и else. не смог понять почему)
                 try
                 {
-                    if (divString[1] == "+" || divString[1] == "-" || divString[1] == "*" || divString[1] == "/" || divString[1] == "")
-                    {
-
-                    }
-                    else
+                    if (divString[1] != "+" || divString[1] != "-" || divString[1] != "*" || divString[1] != "/" || divString[1] != "")
                     {
                         throw new WrongOperException($"Я пока не умею работать с оператором {divString[1]}");
                     }
@@ -87,7 +78,6 @@ namespace DZ_2m_9l
                     Console.BackgroundColor = ConsoleColor.Green;
                     Console.WriteLine(wEx.Message);
                     Console.BackgroundColor = ConsoleColor.Black;
-
                 }
 
 
@@ -203,6 +193,7 @@ namespace DZ_2m_9l
 
             } while (startCalc);
         }
+        
 
 
         //Метод сложения
@@ -251,6 +242,8 @@ namespace DZ_2m_9l
             }
 
         }
+
+        
 
     }
 }
