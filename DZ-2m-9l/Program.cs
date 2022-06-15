@@ -6,24 +6,25 @@ namespace DZ_2m_9l
     {
         static void Main(string[] args)
         {
-            
-                Restart:
+            bool all = true;
+            while (all)
+            {
                 try
                 {
-                    Calculate();
+                    all = Calculate();
                 }
 
                 catch (Exception ex)
                 {
                     Console.WriteLine($"В калькуляторе произошла ошибка: {ex.Message}");
-                    goto Restart;
-
                 }
+            }
+               
             
         }
-        static void Calculate()
+        static bool Calculate()
         {
-
+            string function;
             var startCalc = true;
             do
             {
@@ -39,7 +40,7 @@ namespace DZ_2m_9l
                 //Метод получения строки и остановка выполнения программы
                 Console.WriteLine("Введите выражение");
 
-                var function = Console.ReadLine();
+                function = Console.ReadLine();
 
                 if (function.ToLower() == "стоп")
                 {
@@ -194,6 +195,7 @@ namespace DZ_2m_9l
                 }
 
             } while (startCalc);
+            return startCalc;
         }
         
 
