@@ -65,19 +65,21 @@ namespace DZ_2m_9l
                     continue;
                 }
 
-                //Прроверка оператора на неверный символ (Не срабатывает при !=, только при == и else. не смог понять почему)
+                //Прроверка оператора на неверный символ
                 try
                 {
-                    if (divString[1] != "+" || divString[1] != "-" || divString[1] != "*" || divString[1] != "/" || divString[1] != "")
+                    if (divString[1] != "+" &&  divString[1] != "-" && divString[1] != "*" && divString[1] != "/" && divString[1] != "")
                     {
                         throw new WrongOperException($"Я пока не умею работать с оператором {divString[1]}");
                     }
+                    
                 }
                 catch (WrongOperException wEx)
                 {
                     Console.BackgroundColor = ConsoleColor.Green;
                     Console.WriteLine(wEx.Message);
                     Console.BackgroundColor = ConsoleColor.Black;
+                    continue;
                 }
 
 
